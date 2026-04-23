@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>控制史前生物计划</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f8f5e9 0%, #eae5d5 100%);
+            font-family: 'Segoe UI', 'Roboto', '黑体', 'Microsoft YaHei', sans-serif;
+            padding: 30px 20px;
+            color: #2c2b26;
+        }
+
+        /* 主容器 - 限制最大宽度，居中 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 250, 240, 0.9);
+            border-radius: 48px;
+            padding: 30px 28px;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(1px);
+        }
+
+        /* 大标题 */
+        .title {
+            text-align: center;
+            color: #b22222;
+            font-size: 36px;
+            font-weight: 800;
+            font-family: '黑体', 'Segoe UI', sans-serif;
+            text-decoration: underline;
+            text-underline-offset: 12px;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.05);
+        }
+
+        /* 首段政策说明 */
+        .policy-text {
+            background: #fffef7;
+            padding: 22px 28px;
+            border-radius: 32px;
+            line-height: 1.75;
+            font-size: 1.05rem;
+            border-left: 8px solid #b22222;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+            margin-bottom: 35px;
+            color: #2e2a24;
+        }
+
+        /* 大章节标题 */
+        h3 {
+            font-size: 28px;
+            margin: 35px 0 18px 0;
+            padding-left: 18px;
+            border-left: 8px solid #e67e22;
+            color: #5a3e1b;
+            font-weight: 700;
+        }
+
+        /* 子标题（政策小点） */
+        h4 {
+            font-size: 22px;
+            margin: 20px 0 8px 0;
+            color: #8b5a2b;
+            font-weight: 600;
+        }
+
+        /* 政策内容列表 */
+        .policy-list {
+            background: #fff9ef;
+            border-radius: 28px;
+            padding: 20px 30px;
+            list-style-type: none;
+            margin: 10px 0 20px 0;
+        }
+        .policy-list li {
+            margin-bottom: 18px;
+            padding-left: 28px;
+            position: relative;
+            font-size: 1.02rem;
+            line-height: 1.55;
+        }
+        .policy-list li::before {
+            content: "🦴";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.1rem;
+        }
+
+        /* 生物卡片网格 */
+        .creature-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0 20px;
+        }
+
+        .card {
+            background: white;
+            width: 250px;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            transition: all 0.25s ease-in-out;
+            text-align: center;
+            padding: 20px 15px 18px;
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(220, 180, 120, 0.3);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 28px rgba(0, 0, 0, 0.2);
+            border-color: #e6b86e;
+        }
+
+        .card img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 28px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s;
+            background-color: #f3ede2;
+        }
+
+        .card img:hover {
+            transform: scale(1.02);
+        }
+
+        .card h5 {
+            font-size: 1.5rem;
+            margin: 16px 0 6px;
+            color: #a5481c;
+            font-weight: 800;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: #5c4b2e;
+            padding: 0 4px;
+        }
+
+        /* 合照单独处理，撑满宽度 */
+        .group-photo {
+            text-align: center;
+            margin: 45px 0 20px;
+            background: #e7ddca;
+            border-radius: 45px;
+            padding: 25px 20px 20px;
+        }
+        .group-photo p {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 18px;
+            color: #553b16;
+        }
+        .group-photo img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 28px;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+            border: 3px solid #ffefcf;
+        }
+
+        /* 来源与组成介绍普通段落 */
+        .info-text {
+            background: #fef6e8;
+            padding: 16px 24px;
+            border-radius: 28px;
+            margin: 10px 0 20px;
+            line-height: 1.6;
+            font-size: 1.02rem;
+        }
+
+        hr {
+            margin: 30px 0;
+            border: none;
+            height: 2px;
+            background: linear-gradient(to right, #ddb582, transparent);
+        }
+
+        /* 响应式 */
+        @media (max-width: 760px) {
+            .container {
+                padding: 18px;
+            }
+            .title {
+                font-size: 28px;
+            }
+            h3 {
+                font-size: 24px;
+            }
+            .card {
+                width: 210px;
+            }
+            .card img {
+                width: 140px;
+                height: 140px;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .creature-grid {
+                gap: 18px;
+            }
+            .card {
+                width: 170px;
+                padding: 12px;
+            }
+            .card img {
+                width: 120px;
+                height: 120px;
+            }
+            .card h5 {
+                font-size: 1.2rem;
+            }
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: #886e44;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="title">控制史前生物政策</div>
+
+    <div class="policy-text">
+        近日，赵佗安全局等机关印发《关于实控制史前生物计划的意见》，以控制理念为引领，推出主要3条具体举措，从保障生活到构建捕食体系，为史前生物身心健康筑牢根基。作为首个以促进史前生物在现代生活为主题的政策文件，这份意见将成为人类与史前生物共同发展的统领性指引。
+    </div>
+
+    <h3>1. 政策制定原因</h3>
+    <div class="info-text">今日赵佗学校史前生物数量越来越多，甚至无法控制，所以制定此计划。</div>
+
+    <h3>2. 政策内容</h3>
+    <ul class="policy-list">
+        <li><strong>控制史前生物数量</strong> – 将史前生物数量控制在人类可控范围内，防止对人类生活造成影响。</li>
+        <li><strong>自行建立捕食体系</strong> – 史前生物自行建立捕食体系，在不伤及人类的情况下，人类不进行干涉。</li>
+        <li><strong>提供栖息地</strong> – 将赵佗学校11班定为史前生物栖息地。</li>
+    </ul>
+
+    <h3>以下为史前生物介绍</h3>
+    <h4>1. 史前生物来源</h4>
+    <div class="info-text">史前生物似乎是一个叫红眼老千的史前生物制造出来的，原因暂时不知。</div>
+
+    <h4>2. 史前生物组成</h4>
+    <div class="creature-grid">
+        <!-- 黑胖 -->
+        <div class="card">
+            <img src="丧尸危机背景.jpg" alt="黑胖">
+            <h5>黑胖</h5>
+            <p>⭐ 能力：声波和口水</p>
+        </div>
+        <!-- 红眼老千 -->
+        <div class="card">
+            <img src="红眼老千.png" alt="红眼老千">
+            <h5>红眼老千</h5>
+            <p>🔴 首领 · 能力未知</p>
+        </div>
+        <!-- 思考树懒 -->
+        <div class="card">
+            <img src="思考树懒.png" alt="思考树懒">
+            <h5>思考树懒</h5>
+            <p>🤔 很爱思考 · 能力未知</p>
+        </div>
+        <!-- 臭水班长 -->
+        <div class="card">
+            <img src="伪人超级无敌猎奇版.jpg" alt="臭水班长">
+            <h5>臭水班长</h5>
+            <p>💧 会使用臭水攻击他人</p>
+        </div>
+        <!-- 大帅（新加的） -->
+        <div class="card">
+            <img src="大帅.png" alt="大帅">
+            <h5>大帅</h5>
+            <p>🏔️ 体型巨大 · 能力未知</p>
+        </div>
+        <!-- 牢饭 -->
+        <div class="card">
+            <img src="牢饭.png" alt="牢饭">
+            <h5>牢饭</h5>
+            <p>📖 十分神秘，似乎十分好学</p>
+        </div>
+    </div>
+
+    <!-- 合照部分 -->
+    <div class="group-photo">
+        <p>📸 史前生物的合照 📸</p>
+        <img src="伪人合照.jpg" alt="伪人合照">
+    </div>
+
+    <hr>
+    <footer>赵佗安全局 · 史前生物管理档案</footer>
+</div>
+
+</body>
+</html>
